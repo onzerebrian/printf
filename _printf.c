@@ -4,7 +4,7 @@
 /**
  * _printf -  the main function that prints
  * @format:
- * Retrun:
+ * Return:
  */
 
 int _printf(const char *format, ...)
