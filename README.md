@@ -11,10 +11,6 @@
 
 
 
-## Usage
-+ All the files are to be compiled on Ubuntu 14.04 LTS
-+ Compile your code with `gcc -Wall -Werror -Wextra -pedantic *.c`
-+ Include the "holberton.h" header file on the functions using the _printf()
 
 ## Compilation
 + $ gcc -Wall -Werror -Wextra -pedantic -std=gnu89 *.c
