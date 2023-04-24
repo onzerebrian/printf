@@ -43,6 +43,7 @@ for (i = 0; format[i] != '\0'; i++)
 			i--;
 			char_print(format[i]);
 			n_o_c_p++;
+			continue;
 		}
 	}
 	}
