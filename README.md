@@ -1,4 +1,4 @@
-# Printf function - Group Work
+# Printf function - Group Work between partners
 
 ## Authorized functions and macros
 + write (man 2 write)
