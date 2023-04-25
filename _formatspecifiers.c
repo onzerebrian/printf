@@ -23,6 +23,10 @@ int p_string(va_list al)
 	char *s;
 
 	s = va_arg(al, char *);
+	if (s == NULL)
+	{
+		s = "(null)";
+	}
 	for (i = 0; s[i] != '\0'; i++)
 	{
 	char_print(s[i]);
