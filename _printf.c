@@ -2,6 +2,7 @@
 
 
 /**
+ *COLLABORATION
  * _printf -  the main function that prints
  * @format: is a character string (argument)
  * Return: the number of characters printed.
