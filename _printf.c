@@ -1,57 +1,56 @@
 #include "main.h"
 
 /**
- *COLLABORATION 
- * _printf -  the main function that prints
- * @format: is a character string (argument)
- * Return: the number of characters printed.
+ * _printf - prints output according to a format
+ * @format: format string
+ *
+ * Return: number of characters printed
  */
-
 int _printf(const char *format, ...)
 {
-unsigned int i = 0; /*our iterator*/
-unsigned int n_o_c_p = 0; /*no of characters printed*/
-va_list al;
+    va_list args;
+    int printed_chars = 0;
+    char *str_arg;
+    char char_arg;
 
-va_start(al, format);
+    va_start(args, format);
 
-for (i = 0; format[i] != '\0'; i++)
-{
-	if (format[i] != '%')
-	{
-		char_print(format[i]);
-		n_o_c_p++;
-		continue;
-	}
-	else
-	{
-		i++;
-		switch (format[i])
-		{
-		case 'c':
-			p_char(al);
-			n_o_c_p++;
-			continue;
-		case '%':
-			p_percent();
-			n_o_c_p++;
-			continue;
-		case 's':
-			n_o_c_p += p_string(al);
-			continue;
-		case 'd':
-			n_o_c_p += p_number(al);
-			continue;
-		case 'i':
-			n_o_c_p += p_number(al);
-			continue;
-		default:
-			i--;
-			char_print(format[i]);
-			n_o_c_p++;
-		}
-	}
-	}
-	va_end(al);
-	return (n_o_c_p);
+    while (*format)
+    {
+        if (*format == '%')
+        {
+            format++;
+            switch (*format)
+            {
+                case 's':
+                    str_arg = va_arg(args, char *);
+                    while (*str_arg)
+                    {
+                        printed_chars += write(1, str_arg, 1);
+                        str_arg++;
+                    }
+                    break;
+                case 'c':
+                    char_arg = va_arg(args, int);
+                    printed_chars += write(1, &char_arg, 1);
+                    break;
+                case '%':
+                    printed_chars += write(1, "%", 1);
+                    break;
+                default:
+                    printed_chars += write(1, "%", 1);
+                    printed_chars += write(1, format, 1);
+                    break;
+            }
+        }
+        else
+        {
+            printed_chars += write(1, format, 1);
+        }
+        format++;
+    }
+
+    va_end(args);
+
+    return (printed_chars);
 }
