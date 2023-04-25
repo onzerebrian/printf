@@ -11,4 +11,4 @@ int char_print(char c);
 int p_string(va_list al);
 int p_percent();
 int p_number(va_list al);
-#endif
+#endif  /* PRINT_H */
