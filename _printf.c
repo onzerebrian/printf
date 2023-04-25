@@ -1,56 +1,66 @@
 #include "main.h"
+#include <stdio.h>
+#include <stdarg.h>
 
 /**
- * _printf - prints output according to a format
+ * _ptintf - custom implementation of printf function
  * @format: format string
  *
  * Return: number of characters printed
  */
-int _printf(const char *format, ...)
+int _ptintf(const char *format, ...)
 {
-    va_list args;
-    int printed_chars = 0;
-    char *str_arg;
-    char char_arg;
+	va_list args;
+	int count = 0;
+	const char *ptr = format;
 
-    va_start(args, format);
+	va_start(args, format);
 
-    while (*format)
-    {
-        if (*format == '%')
-        {
-            format++;
-            switch (*format)
-            {
-                case 's':
-                    str_arg = va_arg(args, char *);
-                    while (*str_arg)
-                    {
-                        printed_chars += write(1, str_arg, 1);
-                        str_arg++;
-                    }
-                    break;
-                case 'c':
-                    char_arg = va_arg(args, int);
-                    printed_chars += write(1, &char_arg, 1);
-                    break;
-                case '%':
-                    printed_chars += write(1, "%", 1);
-                    break;
-                default:
-                    printed_chars += write(1, "%", 1);
-                    printed_chars += write(1, format, 1);
-                    break;
-            }
-        }
-        else
-        {
-            printed_chars += write(1, format, 1);
-        }
-        format++;
-    }
+	while (*ptr != '\0')
+	{
+		if (*ptr == '%')
+		{
+			ptr++;
+			switch (*ptr)
+			{
+				case 'c':
+					{
+						char c = va_arg(args, int);
+						putchar(c);
+						count++;
+						break;
+					}
+				case 's':
+					{
+						char *s = va_arg(args, char *);
+						fputs(s, stdout);
+						count += strlen(s);
+						break;
+					}
+				case '%':
+					{
+						putchar('%');
+						count++;
+						break;
+					}
+				default:
+					{
+						putchar('%');
+						putchar(*ptr);
+						count += 2;
+						break;
+					}
+			}
+		}
+		else
+		{
+			putchar(*ptr);
+			count++;
+		}
+		ptr++;
+	}
 
-    va_end(args);
+	va_end(args);
 
-    return (printed_chars);
+	return count;
 }
